@@ -15,7 +15,7 @@ It currently supports the following versions:
 Copy the extracted contents of `dist.zip` to the same directory as Taiko.exe  
 If your game hangs on a black screen at launch for more than a minute, Start Taiko.exe as Administrator.
 
-### config.toml lavbybu
+### config.toml
 
 
 ```toml
