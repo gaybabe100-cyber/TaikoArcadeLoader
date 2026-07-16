@@ -11,10 +11,28 @@ jobs:
                   submodules: recursive
             - name: Set up MSVC
               uses: ilammy/msvc-dev-cmd@v1
+
+            - name: Install CMake (>= 3.25)
+              uses: lukka/get-cmake@v3
+              with:
+                cmake-version: '3.27.6'
+
+            - name: Show CMake & VS info
+              shell: pwsh
+              run: |
+                cmake --version
+                cmake -E capabilities
+                # vswhere is included on windows runners; if missing the command will fail but that's okay
+                vswhere -latest -products * -requires Microsoft.Component.MSBuild -property installationVersion || Write-Output "vswhere not found"
+
             - name: Configure CMake
+              shell: pwsh
               run: cmake -B build -S . -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release
+
             - name: Build
+              shell: pwsh
               run: cmake --build build --config Release --target bnusio
+
             - uses: actions/upload-artifact@v4
               with:
                   name: TaikoArcadeLoader
